@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "MyPlayer.generated.h"
 
+class UPhysicsHandleComponent;
 UCLASS()
 class UNREALGAMEJAM_API AMyPlayer : public ACharacter
 {
@@ -24,9 +25,26 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-private:
 	void MoveForward(float value);
 	void MoveRight(float value);
 	void LookHorizontal(float value);
 	void LookVertical(float value);
+	void ToggleGrab();
+	void Release();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	bool GetFirstPhysicBodyInReach(FHitResult& hit) const;
+
+	UFUNCTION(BlueprintCallable)
+	FVector GetPlayerPosition() const;
+	
+	UFUNCTION(BlueprintCallable)
+	FVector GetPlayerReach() const;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USceneComponent* HeldItemLocation = nullptr;
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	float Reach = 300.0f;
 };
