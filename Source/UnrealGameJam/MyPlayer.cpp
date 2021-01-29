@@ -66,7 +66,7 @@ void AMyPlayer::LookVertical(float value)
 
 void AMyPlayer::ToggleGrab()
 {
-	if ( !PhysicsHandle) { return; }
+	if (!PhysicsHandle) { return; }
 	if (PhysicsHandle->GrabbedComponent)
 	{
 		PhysicsHandle->ReleaseComponent();
