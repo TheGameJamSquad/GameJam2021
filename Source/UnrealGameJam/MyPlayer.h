@@ -27,4 +27,6 @@ protected:
 private:
 	void MoveForward(float value);
 	void MoveRight(float value);
+	void LookHorizontal(float value);
+	void LookVertical(float value);
 };

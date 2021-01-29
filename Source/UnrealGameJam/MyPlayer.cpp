@@ -31,7 +31,8 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis("MoveForward", this, &AMyPlayer::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AMyPlayer::MoveRight);
-	// PlayerInputComponent->BindAxis("MoveRight", this, &AMyPlayer::Tick);
+	PlayerInputComponent->BindAxis("LookHorizontal", this, &AMyPlayer::LookHorizontal);
+	PlayerInputComponent->BindAxis("LookVertical", this, &AMyPlayer::LookVertical);
 }
 
 void AMyPlayer::MoveForward(float value)
@@ -42,4 +43,14 @@ void AMyPlayer::MoveForward(float value)
 void AMyPlayer::MoveRight(float value)
 {
 	AddMovementInput(GetActorRightVector(), value);
+}
+
+void AMyPlayer::LookHorizontal(float value)
+{
+	AddControllerYawInput(value);
+}
+
+void AMyPlayer::LookVertical(float value)
+{
+	AddControllerPitchInput(-value);
 }
