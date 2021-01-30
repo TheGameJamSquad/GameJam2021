@@ -13,5 +13,9 @@ UCLASS()
 class UNREALGAMEJAM_API ARealEvidence : public AEvidenceBase
 {
 	GENERATED_BODY()
+
+	public:
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool IsSharp;
 };
