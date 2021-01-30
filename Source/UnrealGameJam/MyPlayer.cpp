@@ -54,6 +54,7 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("LookHorizontal", this, &AMyPlayer::LookHorizontal);
 	PlayerInputComponent->BindAxis("LookVertical", this, &AMyPlayer::LookVertical);
 	PlayerInputComponent->BindAction("Grab", IE_Pressed, this, &AMyPlayer::ToggleGrab);
+	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &AMyPlayer::ToggleCrouch);
 }
 
 void AMyPlayer::MoveForward(float value)
@@ -104,6 +105,21 @@ void AMyPlayer::Grab(AActor* ActorToGrab)
 	{
 		PhysicsHandle->GrabComponentAtLocation(Component, NAME_None, Component->GetComponentLocation());
 	}
+}
+
+void AMyPlayer::ToggleCrouch()
+{
+	FVector Location = Camera->GetRelativeLocation();
+	if(bIsCrouching)
+	{
+		Location.Z += 50.0f;
+	}
+	else
+	{
+		Location.Z -= 50.0f;
+	}
+	Camera->SetRelativeLocation(Location);
+	bIsCrouching = !bIsCrouching;
 }
 
 FVector AMyPlayer::GetPlayerPosition() const

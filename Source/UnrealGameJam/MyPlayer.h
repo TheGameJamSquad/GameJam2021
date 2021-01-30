@@ -35,6 +35,7 @@ protected:
 	void LookVertical(float value);
 
 	void ToggleGrab();
+	void ToggleCrouch();
 	
 	UFUNCTION(BlueprintCallable)
 	void Grab(AActor* ActorToGrab);
@@ -59,4 +60,6 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	float Reach = 300.0f;
+
+	bool bIsCrouching = false;
 };
