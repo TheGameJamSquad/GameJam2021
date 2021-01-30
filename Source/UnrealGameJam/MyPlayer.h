@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "MyPlayer.generated.h"
 
+class UCameraComponent;
 class UPhysicsHandleComponent;
 UCLASS()
 class UNREALGAMEJAM_API AMyPlayer : public ACharacter
@@ -53,6 +54,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USceneComponent* HeldItemLocation = nullptr;
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UCameraComponent* Camera = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	float Reach = 300.0f;

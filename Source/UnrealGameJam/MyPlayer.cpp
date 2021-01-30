@@ -4,17 +4,22 @@
 #include "MyPlayer.h"
 
 
+
+#include "Camera/CameraComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "PhysicsEngine/PhysicsHandleComponent.h"
-
+#include "Components/ArrowComponent.h"
 // Sets default values
 AMyPlayer::AMyPlayer()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
+	Camera->SetupAttachment(RootComponent);
+	
 	HeldItemLocation = CreateDefaultSubobject<USceneComponent>("Held Item Location");
-	HeldItemLocation->SetupAttachment(RootComponent);
+	HeldItemLocation->SetupAttachment(Camera);
 
 	PhysicsHandle = CreateDefaultSubobject<UPhysicsHandleComponent>("Physics Handle");
 }
@@ -30,9 +35,13 @@ void AMyPlayer::BeginPlay()
 void AMyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if(PhysicsHandle && PhysicsHandle->GrabbedComponent)
+	if(PhysicsHandle)
 	{
-		PhysicsHandle->SetTargetLocation(HeldItemLocation->GetComponentLocation());
+		UPrimitiveComponent* Component = PhysicsHandle->GrabbedComponent;
+		if(Component)
+		{
+			PhysicsHandle->SetTargetLocation(HeldItemLocation->GetComponentLocation());
+		}
 	}
 }
 
@@ -82,7 +91,7 @@ void AMyPlayer::ToggleGrab()
 			UPrimitiveComponent* Component = HitResult.GetComponent();
 			if(Component && Component->IsSimulatingPhysics())
 			{
-				PhysicsHandle->GrabComponentAtLocation(Component, NAME_None, Component->GetComponentLocation());
+				PhysicsHandle->GrabComponentAtLocationWithRotation(Component, NAME_None, Component->GetComponentLocation(), FRotator::ZeroRotator);
 			}
 		}	
 	}
