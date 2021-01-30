@@ -32,8 +32,14 @@ protected:
 	void MoveRight(float value);
 	void LookHorizontal(float value);
 	void LookVertical(float value);
+
 	void ToggleGrab();
-	void Release();
+	
+	UFUNCTION(BlueprintCallable)
+	void Grab(AActor* ActorToGrab);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void ShowPaperDocument();
 
 	UFUNCTION(BlueprintImplementableEvent)
 	bool GetFirstPhysicBodyInReach(FHitResult& hit) const;

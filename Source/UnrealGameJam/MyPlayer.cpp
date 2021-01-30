@@ -3,6 +3,8 @@
 
 #include "MyPlayer.h"
 
+
+#include "Kismet/GameplayStatics.h"
 #include "PhysicsEngine/PhysicsHandleComponent.h"
 
 // Sets default values
@@ -21,6 +23,7 @@ AMyPlayer::AMyPlayer()
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
+	ShowPaperDocument();
 }
 
 // Called every frame
@@ -82,6 +85,15 @@ void AMyPlayer::ToggleGrab()
 				PhysicsHandle->GrabComponentAtLocation(Component, NAME_None, Component->GetComponentLocation());
 			}
 		}	
+	}
+}
+
+void AMyPlayer::Grab(AActor* ActorToGrab)
+{
+	UPrimitiveComponent* Component = ActorToGrab->FindComponentByClass<UPrimitiveComponent>();
+	if(PhysicsHandle && Component && Component->IsSimulatingPhysics())
+	{
+		PhysicsHandle->GrabComponentAtLocation(Component, NAME_None, Component->GetComponentLocation());
 	}
 }
 
