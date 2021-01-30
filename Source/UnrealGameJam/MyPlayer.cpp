@@ -102,3 +102,14 @@ FVector AMyPlayer::GetPlayerReach() const
     
 	return PlayerPosition + PlayerRotation.Vector() * Reach;
 }
+
+AActor* AMyPlayer::GetHandledActor() const
+{
+	if(!PhysicsHandle) { return nullptr; }
+	if(PhysicsHandle->GrabbedComponent)
+	{
+		return PhysicsHandle->GrabbedComponent->GetOwner();
+	}
+	
+	return nullptr;
+}
