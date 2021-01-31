@@ -36,7 +36,11 @@ protected:
 
 	void ToggleGrab();
 	void ToggleCrouch();
-	
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnGrabbed();
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnReleasedObject();
 	UFUNCTION(BlueprintCallable)
 	void Grab(AActor* ActorToGrab);
 
