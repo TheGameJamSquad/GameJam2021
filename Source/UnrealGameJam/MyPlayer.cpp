@@ -82,6 +82,7 @@ void AMyPlayer::ToggleGrab()
 	if (!PhysicsHandle) { return; }
 	if (PhysicsHandle->GrabbedComponent)
 	{
+		OnReleasedObject();
 		PhysicsHandle->ReleaseComponent();
 	}
 	else
@@ -92,6 +93,7 @@ void AMyPlayer::ToggleGrab()
 			UPrimitiveComponent* Component = HitResult.GetComponent();
 			if(Component && Component->IsSimulatingPhysics())
 			{
+				OnGrabbed();
 				PhysicsHandle->GrabComponentAtLocationWithRotation(Component, NAME_None, Component->GetComponentLocation(), FRotator::ZeroRotator);
 			}
 		}	
